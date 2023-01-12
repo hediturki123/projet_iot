@@ -34,8 +34,8 @@ async def run(address, debug=False):
 		print(f"Bleak connected: {bleak_client}")
 
 		def notification_handler(sender, data):
-			timestamp, pressure, humidity, temperature = struct.unpack('<HiHh', data)
-			msg = {'timestamp': timestamp,  'pressure':pressure/100, 'humidity':humidity , 'temperature':temperature}
+			timestamp, turbidity = struct.unpack('<Hh', data)
+			msg = {'timestamp': timestamp, 'turbidity':turbidity}
 			print(msg)
 			r = requests.post(host, json=msg, verify='./chain.pem')
 
